@@ -18,19 +18,19 @@ public class LibrarySystem {
             System.out.println("사용하실 메뉴를 선택해주세요.");
             System.out.println("1. 도서 등록 | 2. 도서 조회 | 3. 도서 삭제 | 4. 종료");
 
-            int selecttMenu = getUserInputInt(SCANNER);
+            int selecttMenu = getUserInputInt();
 
             if (selecttMenu == 1) {
-                addBook(SCANNER, books);
+                addBook(books);
                 continue;
             }
             if (selecttMenu == 2) {
-                readBooks(books, SCANNER);
+                readBooks(books);
                 continue;
 
             }
             if (selecttMenu == 3) {
-                deleteBook(books, SCANNER);
+                deleteBook(books);
                 continue;
             }
             if (selecttMenu == 4) {
@@ -44,25 +44,25 @@ public class LibrarySystem {
         }
     }
 
-    private static void addBook(Scanner scanner, List<Book> books) {
+    private static void addBook(List<Book> books) {
 
         System.out.println("도서 제목을 입력하세요.");
-        String title = scanner.nextLine();
+        String title = SCANNER.nextLine();
 
         System.out.println("작가명을 입력하세요.");
-        String author = scanner.nextLine();
+        String author = SCANNER.nextLine();
 
         System.out.println("출판사를 입력하세요.");
-        String publishing = scanner.nextLine();
+        String publishing = SCANNER.nextLine();
 
         System.out.println("가격을 입력하세요.");
-        int price = getUserInputInt(scanner);
+        int price = getUserInputInt();
 
         System.out.println("재고 수량을 입력하세요.");
-        int stock = getUserInputInt(scanner);
+        int stock = getUserInputInt();
 
         System.out.println("ISBN을 입력하세요.");
-        String isbn = scanner.nextLine();
+        String isbn = SCANNER.nextLine();
 
         Book book = new Book(title, author, publishing, price, stock, isbn);
         books.add(book);
@@ -70,7 +70,7 @@ public class LibrarySystem {
         System.out.println("도서를 저장했습니다.");
     }
 
-    private static void readBooks(List<Book> books, Scanner scanner) {
+    private static void readBooks(List<Book> books) {
         if (isBooksEmpty(books)) {
             return;
         }
@@ -79,10 +79,10 @@ public class LibrarySystem {
 
         System.out.println("도서 검색을 이용하시겠습니까?");
         System.out.println("1. 예 | 2. 아니오(메인으로 돌아갑니다.)");
-        int selectBookSearch = getUserInputInt(scanner);
+        int selectBookSearch = getUserInputInt();
 
         if (selectBookSearch == 1) {
-            searchBook(scanner, books);
+            searchBook(books);
         } else if (selectBookSearch == 2) {
             System.out.println("메인으로 돌아갑니다.");
         } else {
@@ -91,9 +91,9 @@ public class LibrarySystem {
         }
     }
 
-    private static void searchBook(Scanner scanner, List<Book> books) {
+    private static void searchBook(List<Book> books) {
         System.out.println("찾고자 하는 도서명을 입력하세요.");
-        String bookTitle = scanner.next();
+        String bookTitle = SCANNER.nextLine();
 
         for (Book book : books) {
             if (book.getTitle().contains(bookTitle)) {
@@ -104,7 +104,7 @@ public class LibrarySystem {
         }
     }
 
-    private static void deleteBook(List<Book> books, Scanner scanner) {
+    private static void deleteBook(List<Book> books) {
         if (isBooksEmpty(books)) {
             return;
         }
@@ -112,7 +112,7 @@ public class LibrarySystem {
         printAllBooks(books);
 
         System.out.println("삭제하실 도서의 id를 입력하세요.");
-        int deleteId = scanner.nextInt();
+        int deleteId = SCANNER.nextInt();
 
         if (deleteId > books.size() || deleteId <= 0) {
             System.out.println("존재하지 않는 도서입니다.");
@@ -132,9 +132,9 @@ public class LibrarySystem {
         return false;
     }
 
-    private static int getUserInputInt(Scanner scanner) {
-        int input = scanner.nextInt();
-        scanner.nextLine();
+    private static int getUserInputInt() {
+        int input = SCANNER.nextInt();
+        SCANNER.nextLine(); //버퍼 비우기
         return input;
     }
 
